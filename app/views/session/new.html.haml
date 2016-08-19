@@ -1,0 +1,10 @@
+%p.form-title #{Setting.cn_name}
+= form_tag(session_path, class: "form login") do |f|
+  = email_field_tag :email, params[:email], autofocus: true, class: "col-md-12", placeholder: "请输入邮箱"
+  = password_field_tag :password,params[:password], autocomplete: "off", class: "col-md-12", placeholder: "请输入密码"
+
+  = submit_tag "登录", class: "btn btn-success btn-sm"
+  %p.text-right
+    %span 没有账号?，
+    %span
+      = link_to "我要注册", new_registration_path

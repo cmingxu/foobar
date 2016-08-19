@@ -1,0 +1,18 @@
+default: &default
+  sitename: ""
+  title: "Foobar"
+  cn_name: "Foobar"
+  domain: ""
+  description: ""
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+staging:
+  <<: *default
+
+test:
+  <<: *default
