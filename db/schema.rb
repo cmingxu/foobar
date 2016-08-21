@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160813064735) do
+ActiveRecord::Schema.define(version: 20160820235516) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -20,31 +20,36 @@ ActiveRecord::Schema.define(version: 20160813064735) do
     t.integer  "rgt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_categories_on_deleted_at", using: :btree
+  end
+
+  create_table "condition_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.integer  "condition_id"
+    t.string   "pinyin"
+    t.integer  "position"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "conditions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.string   "category_id"
+    t.string   "pinyin"
+    t.integer  "position"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "entities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "category_id"
-    t.string   "name"
-    t.string   "skp_file"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "user_id"
-    t.text     "description", limit: 65535
-    t.string   "icon"
-    t.string   "uuid"
-    t.boolean  "is_system",                 default: false
-    t.boolean  "visible",                   default: true
-  end
-
-  create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name"
-    t.integer  "vendor_id"
-    t.string   "icon"
-    t.decimal  "price",      precision: 10
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "uuid"
-    t.string   "code"
+    t.string   "foo"
+    t.string   "bar"
+    t.datetime "bingo"
+    t.integer  "x"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "simple_captcha_data", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -53,12 +58,6 @@ ActiveRecord::Schema.define(version: 20160813064735) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["key"], name: "idx_key", using: :btree
-  end
-
-  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -74,25 +73,15 @@ ActiveRecord::Schema.define(version: 20160813064735) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "uuid"
     t.string   "roles"
     t.boolean  "visible",                default: true
     t.string   "auth_token"
     t.string   "name"
     t.string   "mobile"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  end
-
-  create_table "vendors", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "name"
-    t.string   "tel"
-    t.string   "address"
-    t.text     "short_desc", limit: 65535
-    t.text     "desc",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "uuid"
   end
 
 end

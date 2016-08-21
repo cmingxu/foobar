@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get 'base/index'
     get 'setting' => "setting#index"
     resources :categories
+    resources :conditions
+    resources :condition_values
     resources :users do
       member do
         patch :toggle_visible

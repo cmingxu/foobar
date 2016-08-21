@@ -1,5 +1,5 @@
 class Dashboard::SettingController < Dashboard::BaseController
   def index
-    @categories = Category.page params[:page] || 1
+    redirect_to dashboard_categories_path
   end
 end

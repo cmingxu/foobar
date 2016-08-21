@@ -2,7 +2,13 @@ class Dashboard::CategoriesController < Dashboard::BaseController
   before_filter :find_category, only: [:edit, :update, :destroy]
 
   def index
+    @default_category = Category.find_by(id: params[:category_id]) || Category.find_by(name: "CPU")
+    @default_condition = Condition.find_by(id: params[:condition_id]) || @default_category.conditions.first
+    @default_condition_value = ConditionValue.find_by(id: params[:condition_value_id]) || @default_condition.try(:condition_values).try(:first) || []
     @categories = Category.order('id desc').page params[:page]
+    @conditions = @default_category.conditions
+    @condition_values = @default_condition.try(:condition_values) || []
+    @category = Category.new
   end
 
   def new
@@ -11,13 +17,11 @@ class Dashboard::CategoriesController < Dashboard::BaseController
 
   def create
     @category = policy_scope(Category).new category_param
-
       authorize @category
       if @category.save
-        redirect_to dashboard_categories_path, notice: "分类上传成功"
+        render js: "window.location.reload()"
       else
-        flash[:notice] = @category.errors.full_messages.first
-        render :new
+        render js: "$.notify('#{@category.errors.full_messages.first}', 'error')"
     end
   end
 
@@ -36,7 +40,7 @@ class Dashboard::CategoriesController < Dashboard::BaseController
   def destroy
     authorize @category
 
-    if @category.entities.count > 0
+    if @category.conditions.count > 0
       redirect_to dashboard_categories_path, notice: "分类已被使用"
       return
     end

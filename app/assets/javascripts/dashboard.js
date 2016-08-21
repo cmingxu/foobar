@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require jquery.turbolinks
 //= require c3
+//= require notifyjs/dist/notify
 //= require bootstrap/dist/js/bootstrap.min
 //= require vendors/bootstrap.file-input
 //= require bootstrap-select/dist/js/bootstrap-select
@@ -27,4 +28,4 @@ ready = function(){
 $('.selectpicker').selectpicker();
 }
 
-$(document).on('turbolinks:load', ready);
+$(document).on('ready turbolinks:load', ready);

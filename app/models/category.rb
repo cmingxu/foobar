@@ -13,11 +13,13 @@
 #
 
 class Category < ApplicationRecord
-    acts_as_nested_set
+  acts_as_paranoid
 
-    has_many :entities
+  has_many :entities
+  has_many :conditions
+  has_many :condition_values
 
-    validates :name, presence: { message: '分类名称不能空' }
-    validates :name, uniqueness: { scope: :parent_id, message: '分类名称不能重复' }
+  validates :name, presence: { message: '分类名称不能空' }
+  validates :name, uniqueness: { scope: :parent_id, message: '分类名称不能重复' }
 end
 

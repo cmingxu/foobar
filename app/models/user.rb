@@ -26,9 +26,9 @@
 class User < ActiveRecord::Base
   SALT = "foobar-su"
   validates :mobile, presence: true
-  validates :password, presence: true, on: :create
+  validates :encrypted_password, presence: true, on: :create
+  acts_as_paranoid
 
-  include UUID
   after_create do
     self.update_column :auth_token, SecureRandom.hex(16)
   end

@@ -11,13 +11,13 @@
     %nav.nav.navbar-inverse.navbar-fixed-top
       .container-fluid
         .navbar-header
-          = link_to gly_icon(:globe) + Setting.cn_name, root_path, class: 'navbar-brand'
+          = link_to gly_icon(:globe) + Setting.cn_name, root_path, class: 'navbar-brand', data: { 'no-turbolinks': true }
 
         %ul.navbar-nav.nav.pull-right
           %li= link_to current_user.identity, dashboard_user_path(current_user)
           %li= link_to "退出", session_path, method: :delete
 
-    .container-fluid.main_content
+    .container-fluid.main_content{class: controller_name }
       .row
         .sidebar
           %ul.nav.nav-sidebar

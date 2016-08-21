@@ -5,6 +5,7 @@
     "jquery": "1.11.1",
     "underscore": "latest",
     "bootstrap-select": "latest",
-    "bootstrap": "latest"
+    "bootstrap": "latest",
+    "notifyjs": "latest"
   }
 }

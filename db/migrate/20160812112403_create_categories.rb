@@ -4,11 +4,6 @@ class CreateCategories < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :pinyin
 
-      t.string :name
-      t.integer :parent_id
-      t.integer :lft
-      t.integer :rgt
-
       t.timestamps
     end
   end

@@ -1,20 +1,93 @@
-= link_to "新建分类", new_dashboard_category_path, class: 'btn btn-primary pull-right'
+%ul.list-group.col-md-2.categories_list.well
+  %li.list-group-item
+    %label.label-default.label.add_category_label
+      = gly_icon(:plus)
+  - @categories.each do |c|
+    %li.list-group-item{class: c == @default_category ? 'active' : ''}
+      = link_to c.name, dashboard_categories_path(category_id: c.id)
+      .operation_panel
+        = link_to gly_icon(:remove), dashboard_category_path(c), method: :delete, data: { confirm: "删除此模型？" }
 
-%table.table
-  %thead
-    %th ID
-    %th 上级
-    %th 分类名
-    %th
-  %tbody
-    - @categories.each do |v|
-      %tr
-        %td= link_to v.id, edit_dashboard_category_path(v)
-        %td= v.parent.name if v.parent
-        %td= v.name
-        %td
-          = link_to gly_icon(:pencil), edit_dashboard_category_path(v)
-          = link_to gly_icon(:remove), dashboard_category_path(v), method: :delete, data: { confirm: "删除此模型？" }
 
-= paginate @categories
+%ul.list-group.col-md-2.categories_list.well
+  %li.list-group-item
+    %label.label-default.label.add_condition_label
+      = gly_icon(:plus)
+  - @conditions.each do |c|
+    %li.list-group-item{class: c == @default_condition ? 'active' : ''}
+      = link_to c.name, dashboard_categories_path(category_id: c.category_id, condition_id: c.id)
+      .operation_panel
+        = link_to gly_icon(:remove), dashboard_condition_path(c), method: :delete, data: { confirm: "删除此模型？" }
 
+
+%ul.list-group.col-md-2.categories_list.well
+  %li.list-group-item
+    %label.label-default.label.add_condition_value_label
+      = gly_icon(:plus)
+  - @condition_values.each do |c|
+    %li.list-group-item{class: c == @default_condition_value ? 'active' : ''}
+      = link_to c.name, dashboard_categories_path(category_id: c.category_id, condition_id: c.condition_id, condition_value_id: c.id)
+      .operation_panel
+        = link_to gly_icon(:remove), dashboard_condition_value_path(c), method: :delete, data: { confirm: "删除此模型？" }
+
+.modal#newCategory{role: 'dialog', tabindex: '-1'}
+  .modal-dialog{role: 'document'}
+    = form_for [:dashboard, Category.new], remote: true do |f|
+      .modal-content
+        .modal-header
+          %span 配件分类
+          %button.close{data: { dismiss: 'modal' }, 'aria-label': 'Close'}
+            %span{'aria-hidden': 'true'}
+              &times;
+        .modal-body
+          %label.label.label-default
+            名称
+          = f.text_field :name
+        .modal-footer
+          = f.submit "新建", class: 'btn'
+
+.modal#newCondition{role: 'dialog', tabindex: '-1'}
+  .modal-dialog{role: 'document'}
+    = form_for [:dashboard, Condition.new(category: @default_category)], remote: true do |f|
+      .modal-content
+        .modal-header
+          %span 配件#{@default_category.name}
+          %button.close{data: { dismiss: 'modal' }, 'aria-label': 'Close'}
+            %span{'aria-hidden': 'true'}
+              &times;
+        .modal-body
+          = f.text_field :name, label: "名称"
+          = f.hidden_field :category_id
+        .modal-footer
+          = f.submit "新建", class: 'btn'
+
+.modal#newConditionValue{role: 'dialog', tabindex: '-1'}
+  .modal-dialog{role: 'document'}
+    = form_for [:dashboard, ConditionValue.new(condition: @default_condition, category: @default_category)], remote: true do |f|
+      .modal-content
+        .modal-header
+          %span 配件
+          %button.close{data: { dismiss: 'modal' }, 'aria-label': 'Close'}
+            %span{'aria-hidden': 'true'}
+              &times;
+        .modal-body
+          = f.text_field :name, label: "分类名称"
+          = f.hidden_field :category_id
+          = f.hidden_field :condition_id
+        .modal-footer
+          = f.submit "新建", class: 'btn'
+
+:javascript
+  $(document).on('ready turbolinks:load', function(){
+    $('.add_category_label').click(function() {
+      $('#newCategory').modal({});
+    });
+
+    $('.add_condition_label').click(function() {
+      $('#newCondition').modal({});
+    });
+
+    $('.add_condition_value_label').click(function() {
+      $('#newConditionValue').modal({});
+    });
+  })

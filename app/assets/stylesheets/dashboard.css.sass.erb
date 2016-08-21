@@ -38,3 +38,45 @@
   padding-bottom: 10px
   border: 1px dashed black
 
+.categories_list
+  height: 800px
+  overflow-y: scroll
+
+  .active
+    a
+      color: white!important
+
+  li
+    padding: 0px
+    .operation_panel
+      display: none
+      position: absolute
+      top: 0px
+      right: 0px
+    &:hover
+      .operation_panel
+        display: block
+  a
+    padding: 10px 15px
+    width: 100%
+    display: inline-block
+    &:hover
+      background-color: gray
+      color: white
+  label
+    padding: 10px 15px
+    width: 100%
+    display: inline-block
+
+
+
+.add_category_label
+  padding-left: 40px
+  padding-right: 40px
+  cursor: pointer
+
+  cursor: hand
+
+.categories
+  .well
+    padding: 0x
