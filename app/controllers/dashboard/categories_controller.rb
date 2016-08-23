@@ -1,5 +1,5 @@
 class Dashboard::CategoriesController < Dashboard::BaseController
-  before_filter :find_category, only: [:edit, :update, :destroy]
+  before_filter :find_category, only: [:edit, :update, :destroy, :conditions_list]
 
   def index
     @default_category = Category.find_by(id: params[:category_id]) || Category.find_by(name: "CPU")
@@ -28,6 +28,15 @@ class Dashboard::CategoriesController < Dashboard::BaseController
   def edit
   end
 
+  def conditions_list
+    @conditions = @category.conditions
+    @condition_values = {}
+    @conditions.each do |c|
+      @condition_values[c] = c.condition_values
+    end
+    render layout: false
+  end
+
   def update
     authorize @category
     if @category.update_attributes category_param
@@ -41,14 +50,14 @@ class Dashboard::CategoriesController < Dashboard::BaseController
     authorize @category
 
     if @category.conditions.count > 0
-      redirect_to dashboard_categories_path, notice: "分类已被使用"
+      redirect_to dashboard_categories_path, notice: "分类已被使用,暂时不能删除"
       return
     end
 
     if @category.destroy
-      redirect_to dashboard_categories_path, notice: "模型删除成功"
+      redirect_to dashboard_categories_path, notice: "分类删除成功"
     else
-      redirect_to dashboard_categories_path, notice: "模型删除失败"
+      redirect_to dashboard_categories_path, notice: "分类删除失败, #{@category.errors.full_messages.first}"
     end
   end
 

@@ -1,0 +1,11 @@
+%table.table
+  - @condition_values.each do |k, v|
+    %tr
+      %td= k.name
+      %td
+        - v.each do |value|
+          %label.label_condition
+            = value.name
+            %span.remove_condtion_value
+              = gly_icon('ok-sign')
+

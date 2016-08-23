@@ -1,0 +1,22 @@
+= simple_form_for [:dashboard, @accessory], input_html: { multipart: true } do |f|
+  = f.input :name
+  = f.input :category_id, as: :select, collection: Category.all, blank: false
+  #condition_value_list
+
+  = f.simple_fields_for :image_assets do |image|
+    = image.input :file,  as: :file, label: ''
+  = f.submit "上传"
+
+
+:javascript
+
+  var load_condition_list = function(){
+    $('#condition_value_list').load('/dashboard/categories/' + $('#accessory_category_id').val() + '/conditions_list');
+  }
+
+  $(document).on('ready turbolinks:load').ready(function(){
+    $('#accessory_category_id').on('change', load_condition_list);
+    $(document).on('click', '#condition_value_list label', function(){ $(this).toggleClass('active_label_condition')});
+    load_condition_list();
+  })
+

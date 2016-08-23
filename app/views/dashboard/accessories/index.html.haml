@@ -1,0 +1,17 @@
+= link_to gly_icon(:plus) +"新配件", new_dashboard_accessory_path(admin: true), {"class" => 'btn btn-default btn-primary'}
+
+%table.table
+  %thead
+    %th ID
+    %th 分类
+    %th 拥有人
+    %th
+  %tbody
+    - @accessories.each do |a|
+      %tr
+        %td= a.id
+        %td= a.category_name
+        %td= a.user.try(:mobile)
+
+= paginate @accessories
+

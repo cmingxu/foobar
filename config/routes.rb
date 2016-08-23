@@ -7,9 +7,14 @@ Rails.application.routes.draw do
     get '/' => "base#index"
     get 'base/index'
     get 'setting' => "setting#index"
-    resources :categories
+    resources :categories do
+      member do
+        get :conditions_list
+      end
+    end
     resources :conditions
     resources :condition_values
+    resources :accessories
     resources :users do
       member do
         patch :toggle_visible

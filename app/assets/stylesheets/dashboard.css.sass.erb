@@ -3,6 +3,7 @@
 @import "bootstrap-select/dist/css/bootstrap-select"
 
 
+$light-green: #79da3a
 .sidebar
   position: fixed
   top: 51px
@@ -80,3 +81,20 @@
 .categories
   .well
     padding: 0x
+
+.accessories
+  .label_condition
+    padding: 5px 10px
+    font-size: 1em
+    font-weight: normal
+    border: 1px dashed $light-green
+
+    .remove_condtion_value
+      display: none
+  .active_label_condition
+    background-color: $light-green
+    .remove_condtion_value
+      display: inline-block
+      cursor: pointer
+      cursor: hand
+

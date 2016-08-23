@@ -22,6 +22,8 @@
         .sidebar
           %ul.nav.nav-sidebar
             %li{class: nav_li_class('users') }
+              = link_to gly_icon(:user) + "配件列表", dashboard_accessories_path
+            %li{class: nav_li_class('users') }
               = link_to gly_icon(:user) + "用户列表", dashboard_users_path
             %li
               = link_to gly_icon(:asterisk) + "设置", dashboard_setting_path
