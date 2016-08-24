@@ -1,5 +1,5 @@
 class Dashboard::CategoriesController < Dashboard::BaseController
-  before_filter :find_category, only: [:edit, :update, :destroy, :conditions_list]
+  before_action :find_category, only: [:edit, :update, :destroy, :conditions_list]
 
   def index
     @default_category = Category.find_by(id: params[:category_id]) || Category.find_by(name: "CPU")
