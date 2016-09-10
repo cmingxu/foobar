@@ -6,6 +6,7 @@
     %li.list-group-item{class: c == @default_category ? 'active' : ''}
       = link_to c.name, dashboard_categories_path(category_id: c.id)
       .operation_panel
+        = link_to gly_icon(:pencil), edit_dashboard_category_path(c)
         = link_to gly_icon(:remove), dashboard_category_path(c), method: :delete, data: { confirm: "删除此模型？" }
 
 
@@ -17,6 +18,7 @@
     %li.list-group-item{class: c == @default_condition ? 'active' : ''}
       = link_to c.name, dashboard_categories_path(category_id: c.category_id, condition_id: c.id)
       .operation_panel
+        = link_to gly_icon(:pencil), edit_dashboard_condition_path(c)
         = link_to gly_icon(:remove), dashboard_condition_path(c), method: :delete, data: { confirm: "删除此模型？" }
 
 
@@ -28,6 +30,7 @@
     %li.list-group-item{class: c == @default_condition_value ? 'active' : ''}
       = link_to c.name, dashboard_categories_path(category_id: c.category_id, condition_id: c.condition_id, condition_value_id: c.id)
       .operation_panel
+        = link_to gly_icon(:pencil), edit_dashboard_condition_value_path(c)
         = link_to gly_icon(:remove), dashboard_condition_value_path(c), method: :delete, data: { confirm: "删除此模型？" }
 
 .modal#newCategory{role: 'dialog', tabindex: '-1'}
@@ -40,8 +43,7 @@
             %span{'aria-hidden': 'true'}
               &times;
         .modal-body
-          %label.label.label-default
-            名称
+          名称
           = f.text_field :name
         .modal-footer
           = f.submit "新建", class: 'btn'
@@ -51,27 +53,29 @@
     = form_for [:dashboard, Condition.new(category: @default_category)], remote: true do |f|
       .modal-content
         .modal-header
-          %span 配件#{@default_category.name}
+          %span #{@default_category.name}
           %button.close{data: { dismiss: 'modal' }, 'aria-label': 'Close'}
             %span{'aria-hidden': 'true'}
               &times;
         .modal-body
-          = f.text_field :name, label: "名称"
+          指标
+          = f.text_field :name, label: "指标"
           = f.hidden_field :category_id
         .modal-footer
-          = f.submit "新建", class: 'btn'
+          = f.submit "增加", class: 'btn'
 
 .modal#newConditionValue{role: 'dialog', tabindex: '-1'}
   .modal-dialog{role: 'document'}
     = form_for [:dashboard, ConditionValue.new(condition: @default_condition, category: @default_category)], remote: true do |f|
       .modal-content
         .modal-header
-          %span 配件
+          %span #{@default_category.name} #{@default_condition.try :name}
           %button.close{data: { dismiss: 'modal' }, 'aria-label': 'Close'}
             %span{'aria-hidden': 'true'}
               &times;
         .modal-body
-          = f.text_field :name, label: "分类名称"
+          指标值
+          = f.text_field :name, label: "指标值"
           = f.hidden_field :category_id
           = f.hidden_field :condition_id
         .modal-footer

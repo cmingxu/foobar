@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823131636) do
+ActiveRecord::Schema.define(version: 20160903095122) do
 
   create_table "accessories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -19,8 +19,19 @@ ActiveRecord::Schema.define(version: 20160823131636) do
     t.string   "category_name"
     t.integer  "user_id"
     t.string   "state"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.text     "description",   limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  create_table "accessory_condition_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "accessory_id"
+    t.integer  "condition_id"
+    t.integer  "condition_value_id"
+    t.string   "condition_name"
+    t.string   "condition_value_name"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "accessory_conditions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -35,9 +46,6 @@ ActiveRecord::Schema.define(version: 20160823131636) do
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.string   "pinyin"
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
@@ -61,15 +69,6 @@ ActiveRecord::Schema.define(version: 20160823131636) do
     t.integer  "position"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "entities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "foo"
-    t.string   "bar"
-    t.datetime "bingo"
-    t.integer  "x"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "image_assets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

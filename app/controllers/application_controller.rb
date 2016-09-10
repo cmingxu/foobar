@@ -14,10 +14,11 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
+    session[:return_to] = request.path
     if login_from_session
       return true
     else
-      redirect_to session[:return_to] || root_path
+      redirect_to new_session_path
     end
   end
 

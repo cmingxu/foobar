@@ -79,6 +79,9 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
+    china_city (0.0.4)
+      jquery-rails
+      rails (>= 3.1.0)
     ckeditor_rails (4.5.10)
       railties (>= 3.0)
     coderay (1.1.1)
@@ -338,6 +341,7 @@ DEPENDENCIES
   bower-rails
   c3-rails
   carrierwave
+  china_city
   ckeditor_rails
   coffee-rails (~> 4.2)
   coffee-script-source

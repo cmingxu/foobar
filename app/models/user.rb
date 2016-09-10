@@ -15,17 +15,18 @@
 #  last_sign_in_ip        :string(255)
 #  created_at             :datetime
 #  updated_at             :datetime
-#  uuid                   :string(255)
 #  roles                  :string(255)
 #  visible                :boolean          default(TRUE)
 #  auth_token             :string(255)
 #  name                   :string(255)
 #  mobile                 :string(255)
+#  deleted_at             :datetime
 #
 
 class User < ActiveRecord::Base
   SALT = "foobar-su"
   validates :mobile, presence: true
+  validates :mobile, uniqueness: true
   validates :encrypted_password, presence: true, on: :create
   acts_as_paranoid
 
@@ -33,7 +34,7 @@ class User < ActiveRecord::Base
     self.update_column :auth_token, SecureRandom.hex(16)
   end
 
-  attr_accessor :password
+  attr_accessor :password, :password_confirmation
 
   has_many :entities
 

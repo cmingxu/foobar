@@ -1,9 +1,60 @@
-.container
-  .jumbotron
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+.container.front-page
+  .col-md-8
+    .panel.panel-info.search-panel
+      .panel-body.text-center
+        .input-group
+          %input.form-control{type: 'text'}
+          %span.input-group-addon
+            = gly_icon("search")
+    .list-group
+      - @accessories.each do |a|
+        .list-group-item
+          .list-group-item-heading
+            = a.title
+          .list-group-item-text
+            = truncate a.description, length: 100
+
+  .col-md-4
+    .panel.panel-info
+      .panel-heading 
+        %h4 加入到另外 #{@accessories.total_count} 个配件
+      .panel-body.text-center
+        %button.btn.btn-danger 
+          = gly_icon(:pencil)
+          发布配件
+
+    .panel.panel-info.panel-user-says
+      .panel-heading
+        %h4 听听我们的客户说
+      .panel-body
+        .list-group
+          .list-group-item
+            .list-group-item-heading 
+              = gly_icon(:user)
+              138****3214 说
+            .list-group-item-text xx配件帮我的业务增长了7成
+
+          .list-group-item
+            .list-group-item-heading 
+              = gly_icon(:user)
+              138****3214 说
+            .list-group-item-text xx配件帮我的业务增长了7成xx配件帮我的业务增长了7成xx配件帮我的业务增长了7成xx配件帮我的业务增长了7成xx配件帮我的业务增长了7成
 
 
-  .row
-    - Category.all.each do |category|
-      %label.label.label-success
-        = link_to category.name, category_path(category)
+          .list-group-item
+            .list-group-item-heading 
+              = gly_icon(:user)
+              138****3214 说
+            .list-group-item-text xx配件帮我的业务增长了7成
+
+          .list-group-item
+            .list-group-item-heading 
+              = gly_icon(:user)
+              138****3214 说
+            .list-group-item-text xx配件帮我的业务增长了7成
+
+          .list-group-item
+            .list-group-item-heading 
+              = gly_icon(:user)
+              138****3214 说
+            .list-group-item-text xx配件帮我的业务增长了7成

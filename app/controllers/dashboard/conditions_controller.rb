@@ -29,6 +29,15 @@ class Dashboard::ConditionsController < Dashboard::BaseController
     end
   end
 
+  def update
+    authorize @condition
+    if @condition.update_attributes condition_param
+      redirect_to dashboard_categories_path, notice: "分类修改成功"
+    else
+      render :edit
+    end
+  end
+
   private
   def condition_param
     params.require(:condition).permit!

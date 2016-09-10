@@ -1,10 +1,10 @@
 class Dashboard::AccessoriesController < Dashboard::BaseController
-  before_action :find_accessories, only: [:edit, :update, :destroy]
+  before_action :find_accessory, only: [:edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @accessories = policy_scope(Accessory).page params[:page]
+    @accessories = policy_scope(Accessory).page(params[:page]).order("id DESC")
   end
 
   def show
@@ -31,9 +31,21 @@ class Dashboard::AccessoriesController < Dashboard::BaseController
   end
 
   def destroy
+    if @accessory.destroy
+      notice = "删除成功"
+    else
+      notice = "删除失败"
+    end
+    redirect_to dashboard_accessories_path, notice: notice
   end
 
   def update
+    authorize @accessory
+    if @accessory.update_attributes accessory_param
+      redirect_to dashboard_categories_path, notice: "分类修改成功"
+    else
+      render :edit
+    end
   end
 
   protected

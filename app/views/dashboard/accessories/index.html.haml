@@ -3,6 +3,7 @@
 %table.table
   %thead
     %th ID
+    %th Name
     %th 分类
     %th 拥有人
     %th
@@ -10,8 +11,12 @@
     - @accessories.each do |a|
       %tr
         %td= a.id
+        %td= a.name
         %td= a.category_name
         %td= a.user.try(:mobile)
+        %th
+          = link_to gly_icon(:pencil), edit_dashboard_accessory_path(a)
+          = link_to gly_icon(:remove), dashboard_accessory_path(a), method: :delete
 
 = paginate @accessories
 

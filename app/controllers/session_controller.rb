@@ -8,16 +8,16 @@ class SessionController < ApplicationController
   end
 
   def create
-    if @user = User.find_by_email(params[:email])
+    if @user = User.find_by_mobile(params[:mobile])
       if @user.password_valid?(params[:password])
         session[:user_id] = @user.id
-        redirect_to dashboard_path
+        redirect_to session[:return_to] || dashboard_path
       else
         flash[:alert] = "密码不正确"
         render :new
       end
     else
-      flash[:alert] = "没能找到#{params[:email]}的账号"
+      flash[:alert] = "没能找到#{params[:mobile]}的账号"
       render :new
     end
   end

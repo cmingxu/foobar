@@ -3,6 +3,15 @@
   = f.input :category_id, as: :select, collection: Category.all, blank: false
   #condition_value_list
 
+  .city-group
+    %select.city-select.selectpicker
+      %option --省份--
+      = options_for_select(ChinaCity.list)
+    %select.city-select.selectpicker
+      %option --城市--
+    %select.city-select.selectpicker
+      %option --地区--
+
   = f.simple_fields_for :image_assets do |image|
     = image.input :file,  as: :file, label: ''
   = f.submit "上传"

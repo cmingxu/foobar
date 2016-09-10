@@ -16,4 +16,6 @@
 //= require c3
 //= require c3
 //= require bootstrap/dist/js/bootstrap.min
+//= require 'jquery'
+//= require 'china_city/jquery.china_city'
 

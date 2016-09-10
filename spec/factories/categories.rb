@@ -5,11 +5,9 @@
 #  id         :integer          not null, primary key
 #  name       :string(255)
 #  pinyin     :string(255)
-#  parent_id  :integer
-#  lft        :integer
-#  rgt        :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  deleted_at :datetime
 #
 
 FactoryGirl.define do

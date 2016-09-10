@@ -7,6 +7,7 @@ class CreateAccessories < ActiveRecord::Migration[5.0]
       t.string :category_name
       t.integer :user_id
       t.string :state
+      t.text :description
 
       t.timestamps
     end

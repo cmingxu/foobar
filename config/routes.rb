@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   resources :categories, only: [:index, :show]
+   mount ChinaCity::Engine => '/china_city'
 
   namespace :dashboard do
     get '/' => "base#index"

@@ -52,8 +52,12 @@ $light-green: #79da3a
     .operation_panel
       display: none
       position: absolute
-      top: 0px
-      right: 0px
+      bottom: 0px
+      right: -20px
+      a
+        font-size: 0.8em
+        width: 20%
+
     &:hover
       .operation_panel
         display: block
@@ -62,7 +66,7 @@ $light-green: #79da3a
     width: 100%
     display: inline-block
     &:hover
-      background-color: gray
+      background-color: lighten(gray, 30%)
       color: white
   label
     padding: 10px 15px

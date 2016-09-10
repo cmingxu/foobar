@@ -19,6 +19,7 @@
 //= require bootstrap/dist/js/bootstrap.min
 //= require vendors/bootstrap.file-input
 //= require bootstrap-select/dist/js/bootstrap-select
+//= require 'china_city/jquery.china_city'
 //
 
 ready = function(){

@@ -7,4 +7,18 @@ class RegistrationController < ApplicationController
 
   def create
   end
+
+  def create
+    @user = User.new user_param
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to dashboard_path
+    else
+      redirect_to new_registration_path, notice: @user.errors.full_messages.first
+    end
+  end
+
+  def user_param
+    params.require(:user).permit!
+  end
 end

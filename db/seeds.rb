@@ -11,7 +11,7 @@ begin
   Category.delete_all
   ConditionValue.delete_all
   Condition.delete_all
-  User.new(mobile: "13699236168", email: "cming.xu@gmail.com", password: "cming.xu@gmail.com", roles: ["admin"]).save
+  User.new(mobile: "13699236168", email: "cming.xu@gmail.com", password: "13699236168", roles: ["admin"]).save
 rescue  Error => e
   puts e
 
@@ -41,6 +41,24 @@ end
 code = Condition.find_by(name: "核心代号")
 %w( SkyLake Broadwell Haswell Ivy Bridge Sandy Bridge Richland Trinity Zambezi Llano).each do |c|
   ConditionValue.create name: c, condition: code, category: cpu
+end
+
+100.times do |i|
+  category = Category.order("rand()").first
+  attrs = { name: Faker.name,
+            count: rand(1000),
+            category: category,
+            user_id: User.first.id
+  }
+
+  a = Accessory.new attrs
+  a.conditions = Condition.all.shuffle[0..2]
+  cvs = a.conditions.map do |c|
+    c.condition_values.shuffle.first
+  end.compact
+  a.condition_values = cvs
+  a.description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  a.save
 end
 
 
