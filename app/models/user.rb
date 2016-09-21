@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    true
+    self.roles =~ Regexp.new('admin')
   end
 
   def make_admin!

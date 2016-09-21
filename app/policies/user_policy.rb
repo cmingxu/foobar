@@ -1,8 +1,12 @@
-class AccessoryPolicy < ApplicationPolicy
+class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      user.admin? ? scope.all : scope.where(user_id: user.id)
+      user.admin? ? scope.all : scope.where(id: user.id)
     end
+  end
+
+  def list?
+    user.admin?
   end
 
   def create?

@@ -5,9 +5,9 @@ class Dashboard::UsersController < Dashboard::BaseController
 
   def index
     if params[:admin]
-      @users = User.admin.page params[:page]
+      @users = policy_scope(User).admin.page params[:page]
     else
-      @users = User.normal_user.page params[:page]
+      @users = policy_scope(User).normal_user.page params[:page]
     end
   end
 

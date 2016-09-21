@@ -14,7 +14,7 @@
           = link_to gly_icon(:globe) + Setting.cn_name, root_path, class: 'navbar-brand', data: { 'no-turbolinks': true }
 
         %ul.navbar-nav.nav.pull-right
-          %li= link_to current_user.identity, dashboard_user_path(current_user)
+          %li= link_to current_user.identity, edit_dashboard_user_path(current_user)
           %li= link_to "退出", session_path, method: :delete
 
     .container-fluid.main_content{class: controller_name }
@@ -23,10 +23,13 @@
           %ul.nav.nav-sidebar
             %li{class: nav_li_class('users') }
               = link_to gly_icon(:user) + "配件列表", dashboard_accessories_path
-            %li{class: nav_li_class('users') }
-              = link_to gly_icon(:user) + "用户列表", dashboard_users_path
-            %li
-              = link_to gly_icon(:asterisk) + "设置", dashboard_setting_path
+            - if policy(User).list?
+              %li{class: nav_li_class('users') }
+                = link_to gly_icon(:user) + "用户列表", dashboard_users_path
+
+            - if policy(:setting).show?
+              %li
+                = link_to gly_icon(:asterisk) + "设置", dashboard_setting_path
 
           %ul.nav.nav-sidebar
             %li.active
