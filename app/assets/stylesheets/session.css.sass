@@ -1,0 +1,47 @@
+@import 'c3'
+@import "bootstrap/dist/css/bootstrap.min"
+@import "mixins"
+
+
+body
+  background-color: #f5f9fb
+  padding: 0
+  margin: 0
+  font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif
+  color: #555
+
+
+.session_form
+  margin-top: 200px
+
+
+.form-desc
+  font-weight: 400
+  font-size: 18px
+  padding: 10px 10px
+
+
+.input-session input
+  border: none
+  width: 100%
+
+
+.input-session
+  background-color: white
+  border: 1px solid #555
+  padding: 10px 15px
+
+.input-top
+  +border-top-radius(10px)
+  border-bottom: none
+.input-middle
+  border-bottom: none
+.input-bottom
+  +border-bottom-radius(10px)
+
+.action-row
+  padding-top: 10px
+  .btn
+    padding: 5px 40px
+  .registration-link
+    font-size: 16px

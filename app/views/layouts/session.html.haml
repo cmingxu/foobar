@@ -10,9 +10,9 @@
   %body
     .container
       .row
-        .col-md-12
-          .wrap
-            = yield
+        .col-md-6.col-md-offset-3.session_form
+          = yield
+          = render :partial => "layouts/message"
 
 
 

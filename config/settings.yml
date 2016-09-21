@@ -3,7 +3,7 @@ default: &default
   title: "Foobar"
   cn_name: "Foobar"
   domain: ""
-  description: ""
+  description: "发现，流通二手电子产品"
 
 production:
   <<: *default
