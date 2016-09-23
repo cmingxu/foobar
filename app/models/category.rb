@@ -11,6 +11,8 @@
 #
 
 class Category < ApplicationRecord
+  include Pinyinable
+  
   acts_as_paranoid
 
   has_many :entities

@@ -4,6 +4,7 @@ default: &default
   cn_name: "Foobar"
   domain: ""
   description: "发现，流通二手电子产品"
+  es_url: "http://localhost:9200"
 
 production:
   <<: *default

@@ -13,9 +13,13 @@
 #
 
 class ConditionValue < ApplicationRecord
+  include Pinyinable
+
   belongs_to :condition
   belongs_to :category
 
+  scope :of_condition, lambda {|condition| where(condition_id: condition.id) }
 
   validates :name, uniqueness: { scope: :condition_id }
+
 end

@@ -11,8 +11,8 @@ begin
   Category.delete_all
   ConditionValue.delete_all
   Condition.delete_all
-  User.new(mobile: "13699236168", email: "cming.xu@gmail.com", password: "13699236168", roles: ["admin"]).save
-rescue  Error => e
+  User.new(mobile: "13699236168", password: "13699236168", roles: ["admin"]).save
+rescue  Exception => e
   puts e
 
 end
