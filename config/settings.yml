@@ -1,7 +1,7 @@
 default: &default
   sitename: ""
-  title: "Foobar"
-  cn_name: "Foobar"
+  title: ""
+  cn_name: "太平洋电脑"
   domain: ""
   description: "发现，流通二手电子产品"
   es_url: "http://localhost:9200"

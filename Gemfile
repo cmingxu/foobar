@@ -83,7 +83,9 @@ gem 'china_city'
 gem 'ruby-pinyin'
 gem 'faraday'
 gem 'elasticsearch-api'
+gem 'data-confirm-modal'
 gem 'hashie'
+gem 'bootstrap-sass', '~> 3.3.6'
 
 
 

@@ -62,6 +62,8 @@ GEM
       sprockets (>= 3.0, < 5)
       tilt
     arel (7.1.1)
+    autoprefixer-rails (6.4.1.1)
+      execjs
     awesome_nested_set (3.1.1)
       activerecord (>= 4.0.0, < 5.1)
     awesome_print (1.7.0)
@@ -70,6 +72,9 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     bower-rails (0.10.0)
     builder (3.2.2)
     c3-rails (0.4.11)
@@ -95,6 +100,8 @@ GEM
     concurrent-ruby (1.0.2)
     d3-rails (4.1.0)
       railties (>= 3.1)
+    data-confirm-modal (1.2.0)
+      railties (>= 3.0)
     debug_inspector (0.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -347,6 +354,7 @@ DEPENDENCIES
   awesome_nested_set
   awesome_print
   better_errors
+  bootstrap-sass (~> 3.3.6)
   bower-rails
   c3-rails
   carrierwave
@@ -355,6 +363,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   coffee-script-source
   d3-rails
+  data-confirm-modal
   devise
   elasticsearch-api
   factory_girl_rails

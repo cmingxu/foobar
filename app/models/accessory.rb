@@ -24,13 +24,15 @@ class Accessory < ApplicationRecord
 
   has_many :accessory_conditions, dependent: :destroy
   has_many :conditions, through: :accessory_conditions
-
   has_many :accessory_condition_values, dependent: :destroy
   has_many :condition_values, through: :accessory_condition_values
-
   has_many :image_assets, as: :attachable
+
+  validates :name, presence: { message: '配件名称不能空' }
+  validates :count, presence: { message: '配件数量不能空' }
   accepts_nested_attributes_for :image_assets
   after_save :es_index
+  before_save :accessory_reinit
   after_destroy :remove_es_index
 
   def title
@@ -98,5 +100,10 @@ class Accessory < ApplicationRecord
     end
 
     body
+  end
+
+  def accessory_reinit
+    self.category_name = self.category.try :name
+    self.count ||= 10
   end
 end

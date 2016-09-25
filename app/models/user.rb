@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :password, :password_confirmation
 
-  has_many :entities
+  has_many :accessories
 
   scope :normal_user, -> { where( "roles LIKE '%user%'" ) }
   scope :admin, -> { where( "roles LIKE '%admin%'" ) }

@@ -12,11 +12,11 @@
       %tr
         %td= a.id
         %td= a.name
-        %td= a.category_name
+        %td= a.category_name || a.category.name
         %td= a.user.try(:mobile)
         %th
           = link_to gly_icon(:pencil), edit_dashboard_accessory_path(a)
-          = link_to gly_icon(:remove), dashboard_accessory_path(a), method: :delete
+          = link_to gly_icon(:remove), dashboard_accessory_path(a), method: :delete, data: { confirm: "确定要删除此配件？" }
 
 = paginate @accessories
 

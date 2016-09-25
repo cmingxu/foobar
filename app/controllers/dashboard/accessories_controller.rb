@@ -4,7 +4,7 @@ class Dashboard::AccessoriesController < Dashboard::BaseController
   respond_to :html
 
   def index
-    @accessories = policy_scope(Accessory).page(params[:page]).order("id DESC")
+    @accessories = policy_scope(Accessory).includes(:user).page(params[:page]).order("id DESC")
   end
 
   def show
@@ -21,7 +21,7 @@ class Dashboard::AccessoriesController < Dashboard::BaseController
   end
 
   def create
-    @accessory = Accessory.new accessory_param
+    @accessory = current_user.accessories.new accessory_param
     if @accessory.save
       redirect_to dashboard_accessories_path, notice: '配件上传成功'
     else

@@ -16,17 +16,27 @@
 //= require jquery.turbolinks
 //= require c3
 //= require notifyjs/dist/notify
-//= require bootstrap/dist/js/bootstrap.min
+//= require bootstrap-sprockets
 //= require vendors/bootstrap.file-input
 //= require bootstrap-select/dist/js/bootstrap-select
 //= require 'china_city/jquery.china_city'
-//
+//= require data-confirm-modal
 
 ready = function(){
   $('input[type=file]').bootstrapFileInput();
   $('.file-inputs').bootstrapFileInput();
 
+  overrideConfirmModalDefault()
+
 $('.selectpicker').selectpicker();
 }
 
 $(document).on('turbolinks:load', ready);
+
+overrideConfirmModalDefault = function() {
+  dataConfirmModal.setDefaults({
+    title: '',
+    commit: '我确定',
+    cancel: '取消'
+  });
+}

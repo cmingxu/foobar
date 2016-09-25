@@ -30,9 +30,9 @@ class Dashboard::CategoriesController < Dashboard::BaseController
 
   def conditions_list
     @conditions = @category.conditions
-    @condition_values = {}
+    @grouped_condition_values = {}
     @conditions.each do |c|
-      @condition_values[c] = c.condition_values
+      @grouped_condition_values[c] = c.condition_values
     end
     render layout: false
   end
