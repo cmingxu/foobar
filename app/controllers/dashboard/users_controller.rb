@@ -44,7 +44,7 @@ class Dashboard::UsersController < Dashboard::BaseController
     else
       flash[:alert] = "用户修改失败，#{@user.errors.full_messages.first}"
     end
-    respond_with @user
+    redirect_to edit_dashboard_user_path(@user)
   end
 
   private

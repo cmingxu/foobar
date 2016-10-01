@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
     self.roles =~ Regexp.new('user')
   end
 
+  def address
+    [self.provice, self.city, self.region].map{|x| ChinaCity.get x}.join " "
+  end
+
   def admin?
     self.roles =~ Regexp.new('admin')
   end

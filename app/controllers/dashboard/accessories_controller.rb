@@ -15,7 +15,12 @@ class Dashboard::AccessoriesController < Dashboard::BaseController
 
   def new
     @accessory = Accessory.new
-    3.times do 
+    @accessory.category_id = Category.default_category.id
+    @accessory.count = 20
+    @accessory.price = 50
+    @accessory.quanlity = Accessory::QUANTITY_LIST.keys.first
+
+    3.times do
       @accessory.image_assets.build
     end
   end

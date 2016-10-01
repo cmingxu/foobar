@@ -3,17 +3,27 @@
 %table.table
   %thead
     %th ID
-    %th Name
     %th 分类
-    %th 拥有人
+    %th 数量
+    %th 单价
+    %th 联系方式
+    %th 交货地点
     %th
   %tbody
     - @accessories.each do |a|
       %tr
         %td= a.id
-        %td= a.name
         %td= a.category_name || a.category.name
-        %td= a.user.try(:mobile)
+        %td
+          = a.count
+          个
+        %td
+          = a.price
+          元
+        %td
+          = a.user.name
+          =a.user.mobile
+        %td= a.user.address
         %th
           = link_to gly_icon(:pencil), edit_dashboard_accessory_path(a)
           = link_to gly_icon(:remove), dashboard_accessory_path(a), method: :delete, data: { confirm: "确定要删除此配件？" }

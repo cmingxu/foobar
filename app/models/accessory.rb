@@ -19,6 +19,13 @@ class Accessory < ApplicationRecord
   ES_INDEX = "foobar"
   ES_TYPE = "accessories"
 
+  QUANTITY_LIST = {
+    "cate100": "全新",
+    "cate90": "九成新",
+    "cate80": "八成新",
+    "cate70": "五成新",
+  }
+
   belongs_to :user
   belongs_to :category
 
@@ -28,8 +35,8 @@ class Accessory < ApplicationRecord
   has_many :condition_values, through: :accessory_condition_values
   has_many :image_assets, as: :attachable
 
-  validates :name, presence: { message: '配件名称不能空' }
   validates :count, presence: { message: '配件数量不能空' }
+  validates :price, presence: { message: '配件单价不能空' }
   accepts_nested_attributes_for :image_assets
   after_save :es_index
   before_save :accessory_reinit
@@ -89,7 +96,7 @@ class Accessory < ApplicationRecord
 
   def es_body
     body = {
-      name: self.name,
+      description: self.description,
       count: self.count,
       category_name: self.category_name,
       category_pinyin: self.category.try(:pinyin),

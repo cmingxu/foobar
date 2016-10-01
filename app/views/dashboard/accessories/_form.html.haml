@@ -1,32 +1,34 @@
-= simple_form_for [:dashboard, @accessory], input_html: { multipart: true } do |f|
-  = f.input :name, label: '配件名称'
-  = f.input :count, as: :integer, label: '配件数量', input_html: { placeholder: 10 }
+.panel.panel-default
+  .panel-body
+    = simple_form_for [:dashboard, @accessory], input_html: { multipart: true } do |f|
+      = f.input :category_id, as: :select, collection: Category.all, include_blank: false, label: '分类'
+      #condition_value_list
+      = f.input :count, as: :integer, label: '数量', input_html: { placeholder: 10 }
+      = f.input :price, as: :integer, label: '单价', input_html: { placeholder: 10 }
+      = f.input :quanlity, as: :select, label: '成色', collection: Accessory::QUANTITY_LIST.invert, include_blank: false
 
-  = f.input :category_id, as: :select, collection: Category.all, include_blank: false, label: '配件分类'
-  #condition_value_list
-    
-  .city-group
-    %select.city-select
-      %option --省份--
-      = options_for_select(ChinaCity.list)
-    %select.city-select
-      %option --城市--
-    %select.city-select
-      %option --地区--
+      .form-group
+        %label.control-label 取货地点
 
-  = f.simple_fields_for :image_assets do |image|
-    = image.input :file,  as: :file, label: ''
-  = f.submit "上传", class: 'btn btn-primary col-md-12'
+        %p.address
+          = @accessory.user ? @accessory.user.address : current_user.address
+        %p
+          = link_to "修改取货地址", edit_dashboard_user_path(@accessory.user || current_user), target: "_blank"
+
+      .row
+        = f.simple_fields_for :image_assets do |image|
+          .col-md-3.accessory_pic_holder
+            = image.input :file,  as: :file, label: "图片#{cycle(%w(一 二 三))}", input_html: { data: 'filename-placement', accept: ".png, .jpg, .jpeg"}
+
+      = f.submit "上传", class: 'btn btn-success'
 
 
-:javascript
-  var load_condition_list = function(){
-    $('#condition_value_list').load('/dashboard/categories/' + $('#accessory_category_id').val() + '/conditions_list');
-  }
-
-  $(document).on('ready turbolinks:load').ready(function(){
-    $('#accessory_category_id').on('change', load_condition_list);
-    $(document).on('click', '#condition_value_list label', function(){ $(this).toggleClass('active_label_condition')});
-    load_condition_list();
-  })
-
+    :javascript
+      var load_condition_list = function(){
+        $('#condition_value_list').load('/dashboard/categories/' + $('#accessory_category_id').val() + '/conditions_list');
+      }
+      $(document).on('ready turbolinks:load').ready(function(){
+        $('#accessory_category_id').on('change', load_condition_list);
+        $(document).on('click', '#condition_value_list label', function(){ $(this).toggleClass('active_label_condition')});
+        load_condition_list();
+      })

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925060837) do
+ActiveRecord::Schema.define(version: 20161001045753) do
 
   create_table "accessories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20160925060837) do
     t.text     "description",   limit: 65535
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "price"
+    t.string   "quanlity"
   end
 
   create_table "accessory_condition_values", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

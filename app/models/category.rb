@@ -12,8 +12,10 @@
 
 class Category < ApplicationRecord
   include Pinyinable
-  
+
   acts_as_paranoid
+
+  scope :default_category,  proc { where("name = 'CPU'").first }
 
   has_many :entities
   has_many :conditions

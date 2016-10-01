@@ -11,14 +11,9 @@
   .panel-body
     = simple_form_for [:dashboard, @user], html: { multipart: true }  do |f|
       .city-group
-        %select.city-select
-          %option --省份--
-          = options_for_select(ChinaCity.list)
-        %select.city-select
-          %option --城市--
-        %select.city-select
-          %option --地区--
+        = f.input :provice, as: :select, collection: ChinaCity.list, input_html: { class: 'city-select' }, label: "省份", include_blank: false
+        = f.input :city, as: :select, collection:  f.object.provice ? ChinaCity.list(f.object.provice) : ["--城市--"], input_html: { class: 'city-select' }, label: "城市", include_blank: false
+        = f.input :region, as: :select, collection: f.object.city ? ChinaCity.list(f.object.city) : ["--地区--"], input_html: { class: 'city-select' }, label: "区县", include_blank: false
 
       = f.submit f.object.persisted? ? "修改" : "增加", class: 'btn btn-primary btn-default'
-
 
