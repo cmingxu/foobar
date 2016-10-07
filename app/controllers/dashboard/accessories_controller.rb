@@ -4,7 +4,11 @@ class Dashboard::AccessoriesController < Dashboard::BaseController
   respond_to :html
 
   def index
-    @accessories = policy_scope(Accessory).includes(:user).page(params[:page]).order("id DESC")
+    if params[:state]
+      @accessories = policy_scope(Accessory).send(params[:state]).includes(:user).page(params[:page]).order("id DESC")
+    else
+      @accessories = policy_scope(Accessory).includes(:user).page(params[:page]).order("id DESC")
+    end
   end
 
   def show
@@ -32,7 +36,17 @@ class Dashboard::AccessoriesController < Dashboard::BaseController
     else
       render :new
     end
+  end
 
+  %w(hold publish time_due).each do |method|
+    define_method(method) do
+      authorize @accessory
+      if @accessory.send "#{method}!"
+        redirect_to dashboard_categories_path, notice: "修改成功"
+      else
+        render :edit
+      end
+    end
   end
 
   def destroy

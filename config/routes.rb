@@ -15,7 +15,13 @@ Rails.application.routes.draw do
     end
     resources :conditions
     resources :condition_values
-    resources :accessories
+    resources :accessories do
+      member do
+        patch :publish
+        patch :time_due
+        patch :hold
+      end
+    end
     resources :users do
       member do
         patch :toggle_visible

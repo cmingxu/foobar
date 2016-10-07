@@ -1,4 +1,16 @@
+%ul.list-inline.bg-info.label_bg
+  %li
+    %h4
+      %label.label.label-bg{class: 'label-success' }
+        = link_to "全部", dashboard_accessories_path
+  - Accessory::STATE_MAP.each do |key, value|
+    %li
+      %h4
+        %label.label{class: cycle('label-warning') }
+          = link_to value, dashboard_accessories_path(state: key)
+
 = link_to gly_icon(:plus) +"新配件", new_dashboard_accessory_path(admin: true), {"class" => 'btn btn-default btn-primary'}
+
 
 %table.table
   %thead
@@ -25,6 +37,13 @@
           =a.user.mobile
         %td= a.user.address
         %th
+          - if policy(:accessory).publish? && (a.pending?  || a.hold?)
+            = link_to gly_icon(:play), publish_dashboard_accessory_path(a), method: :patch, data: { confirm: "确定要公布此信息？" }
+
+          - if policy(:accessory).hold? && a.pending?
+            = link_to gly_icon(:pause), hold_dashboard_accessory_path(a), method: :patch, data: { confirm: "确定要撤销此信息？" }
+
+
           = link_to gly_icon(:pencil), edit_dashboard_accessory_path(a)
           = link_to gly_icon(:remove), dashboard_accessory_path(a), method: :delete, data: { confirm: "确定要删除此配件？" }
 

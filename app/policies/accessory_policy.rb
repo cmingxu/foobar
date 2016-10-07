@@ -13,6 +13,18 @@ class AccessoryPolicy < ApplicationPolicy
     user.admin?
   end
 
+  def hold?
+    true
+  end
+
+  def publish?
+    user.admin?
+  end
+
+  def time_due?
+    user.admin?
+  end
+
   def destroy?
     user.admin?
   end

@@ -16,8 +16,15 @@
 
 require 'jbuilder'
 class Accessory < ApplicationRecord
+  include AASM
   ES_INDEX = "foobar"
   ES_TYPE = "accessories"
+
+  STATE_MAP = {published: "已发布", pending: "未发布", hold: "暂存" }
+
+  STATE_MAP.keys.each do |s|
+    scope s, proc { where(state: s) }
+  end
 
   QUANTITY_LIST = {
     "cate100": "全新",
@@ -41,6 +48,26 @@ class Accessory < ApplicationRecord
   after_save :es_index
   before_save :accessory_reinit
   after_destroy :remove_es_index
+
+  aasm :state do
+    state :pending, initial: true
+    state :publishing
+    state :hold
+    state :expired
+
+    event :publish do
+      transitions from: :pending, to: :published
+    end
+
+    event :time_due do
+      transitions from: [:published], to: :expired
+    end
+
+    event :hold do
+      transitions from: [:pending, :published], to: :hold
+    end
+  end
+
 
   def title
     [self.category_name || self.category.try(:name), self.count].join " "
